@@ -1,16 +1,16 @@
+import { Buffer } from "buffer";
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
 import {
-  Button,
-  Image,
-  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  Image,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
-import { Buffer } from "buffer";
 
-const domain = "disposable.deno.dev";
+const domain = "api.dev.disposable-camera.app";
 const version = "v1";
 const protocol = "https";
 
@@ -81,7 +81,7 @@ export default function App() {
     );
     const disposableParsed = await disposableResponse.json();
     const disposableUpload = disposableParsed.upload;
-
+    console.log("WE HERE");
     fetch(disposableUpload, { method: "PUT", body: spacesFile });
   }
 
