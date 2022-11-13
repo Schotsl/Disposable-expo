@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -41,27 +41,27 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
 
       <View style={styles.controls}>
-        <Input
+        <TextInput
           placeholder='Email'
-          containerStyle={styles.control}
+          // containerStyle={styles.control}
           value={value.email}
           onChangeText={(text) => setValue({ ...value, email: text })}
-          leftIcon={<Icon
-            name='envelope'
-            size={16}
-          />}
+          // leftIcon={<Icon
+          //   name='envelope'
+          //   size={16}
+          // />}
         />
 
-        <Input
+        <TextInput
           placeholder='Password'
-          containerStyle={styles.control}
+          style={styles.control}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
           secureTextEntry={true}
-          leftIcon={<Icon
-            name='key'
-            size={16}
-          />}
+          // leftIcon={<Icon
+          //   name='key'
+          //   size={16}
+          // />}
         />
 
         <Button title="Sign up" buttonStyle={styles.control} onPress={signUp} />
