@@ -1,15 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Button } from 'react-native-elements';
-
-import { Buffer } from "buffer";
+import Constants from 'expo-constants';
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
-
-const domain = "api.dev.disposable-camera.app";
-const version = "v1";
-const protocol = "https";
-
 
 const CameraScreen = () => {
   const camera = useRef(null);
@@ -44,42 +38,31 @@ const CameraScreen = () => {
   }
 
   async function takePicture() {
-    const pictureResponse = await camera.current.takePictureAsync({
-      base64: true,
-    });
+    const pictureResponse = await camera.current.takePictureAsync({ base64: true });
+    const pictureBase64 = `data:image/png;base64,${pictureResponse.base64}`;
 
-    const spacesBase64 = `data:image/png;base64,${pictureResponse.base64}`;
-    const spacesBuffer = Buffer.from(pictureResponse.base64, "base64");
-    const spacesBlob = new Blob([spacesBuffer]);
-    const spacesFile = new File([spacesBlob], "test.jpg", {
-      type: "image/jpeg",
-    });
+    setBase64(pictureBase64);
 
-    setBase64(spacesBase64);
+    const spacesRespond = await fetch(pictureResponse.uri);
+    const spacesBlob = await spacesRespond.blob();
 
     const disposableHeaders = { "Content-Type": "application/json" };
     const disposableMethod = "POST";
     const disposableBody = JSON.stringify({
-      size: spacesFile.size,
+      size: spacesBlob.size,
       width: pictureResponse.width,
       height: pictureResponse.height,
     });
 
-    console.log(`${protocol}://${domain}/${version}/image`);
-    console.log(disposableBody);
+    const apiDomain = Constants.manifest?.extra?.apiDomain;
+    const apiVersion = Constants.manifest?.extra?.apiVersion;
+    const apiProtocol = Constants.manifest?.extra?.apiProtocol;
 
-    const disposableResponse = await fetch(
-      `${protocol}://${domain}/${version}/image`,
-      {
-        headers: disposableHeaders,
-        method: disposableMethod,
-        body: disposableBody,
-      },
-    );
+    const disposableResponse = await fetch(`${apiProtocol}://${apiDomain}/${apiVersion}/image`, { headers: disposableHeaders, method: disposableMethod, body: disposableBody });
     const disposableParsed = await disposableResponse.json();
     const disposableUpload = disposableParsed.upload;
-    console.log("WE HERE");
-    fetch(disposableUpload, { method: "PUT", body: spacesFile });
+
+    fetch(disposableUpload, { method: "PUT", body: spacesBlob });
   }
 
   return (

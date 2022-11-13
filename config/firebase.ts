@@ -9,12 +9,10 @@ import { initializeAuth, getReactNativePersistence} from 'firebase/auth/react-na
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: Constants.manifest?.extra?.firebaseApiKey,
-  authDomain: Constants.manifest?.extra?.firebaseAuthDomain,
-  projectId: Constants.manifest?.extra?.firebaseProjectId,
-  storageBucket: Constants.manifest?.extra?.firebaseStorageBucket,
-  messagingSenderId: Constants.manifest?.extra?.firebaseMessagingSenderId,
-  appId: Constants.manifest?.extra?.firebaseAppId,
+  appId: Constants.manifest?.extra?.firebaseId,
+  apiKey: Constants.manifest?.extra?.firebaseKey,
+  projectId: Constants.manifest?.extra?.firebaseProject,
+  authDomain: Constants.manifest?.extra?.firebaseDomain,
 };
 
 // Initialize Firebase
