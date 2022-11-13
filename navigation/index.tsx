@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import SignedIn from './signedIn';
-import SignedOut from './signedOut';
+import SignedIn from "./signedIn";
+import SignedOut from "./signedOut";
 
-import { useAuthentication } from '../utils/hooks/useAuthentication';
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 export default function RootNavigation() {
   const { user } = useAuthentication();

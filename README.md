@@ -13,7 +13,9 @@
 npx create-react-native-app -t with-typescript
 ```
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+TypeScript is a superset of JavaScript which gives you static types and powerful
+tooling in Visual Studio Code including autocompletion and useful inline
+warnings for type errors.
 
 ## 🚀 How to use
 
@@ -27,9 +29,11 @@ TypeScript is a superset of JavaScript which gives you static types and powerful
 
 - Create a blank TypeScript config: `touch tsconfig.json`
 - Run `yarn start` or `npm run start` to automatically configure TypeScript
-- Rename files to TypeScript, `.tsx` for React components and `.ts` for plain typescript files
+- Rename files to TypeScript, `.tsx` for React components and `.ts` for plain
+  typescript files
 
-> 💡 You can disable the TypeScript setup in Expo CLI with the environment variable `EXPO_NO_TYPESCRIPT_SETUP=1 expo start`
+> 💡 You can disable the TypeScript setup in Expo CLI with the environment
+> variable `EXPO_NO_TYPESCRIPT_SETUP=1 expo start`
 
 ## 📝 Notes
 

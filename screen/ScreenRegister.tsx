@@ -1,36 +1,39 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button } from 'react-native-elements';
-import { StackScreenProps } from '@react-navigation/stack';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+// deno-lint-ignore-file no-explicit-any
+
+import Icon from "react-native-vector-icons/FontAwesome";
+import React from "react";
+
+import { Button } from "react-native-elements";
+import { StackScreenProps } from "@react-navigation/stack";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const auth = getAuth();
 
 const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [value, setValue] = React.useState({
-    email: '',
-    password: '',
-    error: ''
-  })
+    email: "",
+    password: "",
+    error: "",
+  });
 
   async function signUp() {
-    if (value.email === '' || value.password === '') {
+    if (value.email === "" || value.password === "") {
       setValue({
         ...value,
-        error: 'Email and password are mandatory.'
-      })
+        error: "Email and password are mandatory.",
+      });
       return;
     }
 
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password);
-      navigation.navigate('Sign in');
+      navigation.navigate("Sign in");
     } catch (error) {
       setValue({
         ...value,
         error: error.message,
-      })
+      });
     }
   }
 
@@ -38,11 +41,15 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Signup screen!</Text>
 
-      {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
+      {!!value.error && (
+        <View style={styles.error}>
+          <Text>{value.error}</Text>
+        </View>
+      )}
 
       <View style={styles.controls}>
         <TextInput
-          placeholder='Email'
+          placeholder="Email"
           // containerStyle={styles.control}
           value={value.email}
           onChangeText={(text) => setValue({ ...value, email: text })}
@@ -53,7 +60,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         />
 
         <TextInput
-          placeholder='Password'
+          placeholder="Password"
           style={styles.control}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
@@ -68,15 +75,15 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   controls: {
@@ -84,15 +91,15 @@ const styles = StyleSheet.create({
   },
 
   control: {
-    marginTop: 10
+    marginTop: 10,
   },
 
   error: {
     marginTop: 10,
     padding: 10,
-    color: '#fff',
-    backgroundColor: '#D54826FF',
-  }
+    color: "#fff",
+    backgroundColor: "#D54826FF",
+  },
 });
 
 export default SignUpScreen;

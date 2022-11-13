@@ -1,24 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button } from 'react-native-elements';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import React from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Button, Input } from "react-native-elements";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const auth = getAuth();
 
 const SignInScreen = () => {
   const [value, setValue] = React.useState({
-    email: '',
-    password: '',
-    error: ''
-  })
+    email: "",
+    password: "",
+    error: "",
+  });
 
   async function signIn() {
-    if (value.email === '' || value.password === '') {
+    if (value.email === "" || value.password === "") {
       setValue({
         ...value,
-        error: 'Email and password are mandatory.'
-      })
+        error: "Email and password are mandatory.",
+      });
       return;
     }
 
@@ -28,7 +33,7 @@ const SignInScreen = () => {
       setValue({
         ...value,
         error: error.message,
-      })
+      });
     }
   }
 
@@ -41,11 +46,15 @@ const SignInScreen = () => {
     <View style={styles.container}>
       <Text>Signin screen!</Text>
 
-      {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
+      {!!value.error && (
+        <View style={styles.error}>
+          <Text>{value.error}</Text>
+        </View>
+      )}
 
       <View style={styles.controls}>
         <TextInput
-          placeholder='Email'
+          placeholder="Email"
           // containerStyle={styles.control}
           value={value.email}
           onChangeText={(text) => setValue({ ...value, email: text })}
@@ -56,7 +65,7 @@ const SignInScreen = () => {
         />
 
         <TextInput
-          placeholder='Password'
+          placeholder="Password"
           style={styles.control}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
@@ -75,15 +84,15 @@ const SignInScreen = () => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   controls: {
@@ -91,15 +100,15 @@ const styles = StyleSheet.create({
   },
 
   control: {
-    marginTop: 10
+    marginTop: 10,
   },
 
   error: {
     marginTop: 10,
     padding: 10,
-    color: '#fff',
-    backgroundColor: '#D54826FF',
-  }
+    color: "#fff",
+    backgroundColor: "#D54826FF",
+  },
 });
 
 export default SignInScreen;

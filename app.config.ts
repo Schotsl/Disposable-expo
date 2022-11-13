@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export default {
   expo: {
@@ -11,6 +11,6 @@ export default {
       firebaseKey: process.env.FIREBASE_KEY,
       firebaseDomain: process.env.FIREBASE_DOMAIN,
       firebaseProject: process.env.FIREBASE_PROJECT,
-    }
-  }
+    },
+  },
 };

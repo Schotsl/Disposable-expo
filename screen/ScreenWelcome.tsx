@@ -1,7 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { Button } from 'react-native-elements';
+// deno-lint-ignore-file no-explicit-any
+
+import React from "react";
+
+import { Button } from "react-native-elements";
+import { StackScreenProps } from "@react-navigation/stack";
+import { StyleSheet, Text, View } from "react-native";
 
 const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
@@ -9,20 +12,29 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       <Text>Welcome screen!</Text>
 
       <View style={styles.buttons}>
-        <Button title="Sign in" buttonStyle={styles.button} onPress={() => navigation.navigate('Sign in')} />
-        <Button title="Sign up" type="outline" buttonStyle={styles.button} onPress={() => navigation.navigate('Sign up')} />
+        <Button
+          title="Sign in"
+          buttonStyle={styles.button}
+          onPress={() => navigation.navigate("Sign in")}
+        />
+        <Button
+          title="Sign up"
+          type="outline"
+          buttonStyle={styles.button}
+          onPress={() => navigation.navigate("Sign up")}
+        />
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttons: {
@@ -30,8 +42,8 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });
 
 export default WelcomeScreen;

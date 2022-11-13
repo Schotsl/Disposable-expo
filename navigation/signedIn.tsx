@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import ScreenHome from '../screen/ScreenHome';
-import ScreenCamera from '../screen/ScreenCamera';
+import ScreenHome from "../screen/ScreenHome";
+import ScreenCamera from "../screen/ScreenCamera";
 
 const Stack = createStackNavigator();
 
