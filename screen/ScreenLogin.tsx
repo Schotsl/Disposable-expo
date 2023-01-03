@@ -29,6 +29,7 @@ const nativeParams = { native: "app.disposablecamera.disposable://" };
 const selectedParams = Constants.appOwnership === "expo"
   ? proxyParams
   : nativeParams;
+  
 const selectedRedirect = AuthSession.makeRedirectUri(selectedParams);
 
 const SignInScreen = () => {
