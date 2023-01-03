@@ -1,12 +1,12 @@
 {
   "lint": {
     "files": {
-      "exclude": ["node_modules"]
+      "exclude": ["node_modules", ".expo"]
     }
   },
   "fmt": {
     "files": {
-      "exclude": ["node_modules"]
+      "exclude": ["node_modules", ".expo"]
     }
   }
 }
