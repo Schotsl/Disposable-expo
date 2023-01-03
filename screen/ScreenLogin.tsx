@@ -6,30 +6,42 @@ import React from "react";
 import { Button } from "react-native-elements";
 import { useEffect } from "react";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
-import { signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithCredential,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
-import * as AuthSession from 'expo-auth-session';
-import Constants from 'expo-constants';
+import * as AuthSession from "expo-auth-session";
+import Constants from "expo-constants";
 WebBrowser.maybeCompleteAuthSession();
 
 // TODO: Get these from config
-const proxyParams = { useProxy: true, projectNameForProxy: '@schotsl/disposable' };
+const proxyParams = {
+  useProxy: true,
+  projectNameForProxy: "@schotsl/disposable",
+};
 const nativeParams = { native: "app.disposablecamera.disposable://" };
 
-const selectedParams = Constants.appOwnership === 'expo' ? proxyParams : nativeParams;
+const selectedParams = Constants.appOwnership === "expo"
+  ? proxyParams
+  : nativeParams;
 const selectedRedirect = AuthSession.makeRedirectUri(selectedParams);
 
 const SignInScreen = () => {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     redirectUri: selectedRedirect,
-    iosClientId: "107127868067-6666bnbvlcd2fvvojdtncq1h3bihkfjb.apps.googleusercontent.com",
-    webClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
-    expoClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
-    androidClientId: "107127868067-e4t4bh092rcql1rit78tt7s279n47r6b.apps.googleusercontent.com",
+    iosClientId:
+      "107127868067-6666bnbvlcd2fvvojdtncq1h3bihkfjb.apps.googleusercontent.com",
+    webClientId:
+      "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
+    expoClientId:
+      "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
+    androidClientId:
+      "107127868067-e4t4bh092rcql1rit78tt7s279n47r6b.apps.googleusercontent.com",
   });
 
   const [value, setValue] = React.useState({
@@ -88,7 +100,6 @@ const SignInScreen = () => {
 
         <Button title="Sign in" buttonStyle={styles.control} onPress={signIn} />
 
-        
         <Button
           title="Sign in with Google"
           disabled={!request}
