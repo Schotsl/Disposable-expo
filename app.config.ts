@@ -6,12 +6,12 @@ export default {
     slug: "Disposable",
     version: "1.0.0",
     android: {
-      package: "app.disposable_camera.disposable",
+      package: "app.disposable365.disposable",
     },
     ios: {
-      bundleIdentifier: "app.disposable-camera.disposable",
+      bundleIdentifier: "app.disposable365.disposable",
     },
-    scheme: "app.disposable_camera.disposable",
+    scheme: "app.disposable365.disposable",
     extra: {
       apiDomain: process.env.API_DOMAIN,
       apiVersion: process.env.API_VERSION,

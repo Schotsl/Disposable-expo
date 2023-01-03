@@ -1,34 +1,36 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import auth from "../config/firebase";
 import React from "react";
-import { Platform } from "react-native";
-import { makeRedirectUri } from 'expo-auth-session';
 
-// TODO: Use react-native button instead of react-native-elements
+// TODO: Use react-native Button instead of react-native-elements
 import { Button } from "react-native-elements";
 import { useEffect } from "react";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { getAuth, signInWithCredential } from "firebase/auth";
+import { signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
 import * as AuthSession from 'expo-auth-session';
-
+import Constants from 'expo-constants';
 WebBrowser.maybeCompleteAuthSession();
 
-const SignInScreen = () => {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    // iosClientId: "107127868067-6666bnbvlcd2fvvojdtncq1h3bihkfjb.apps.googleusercontent.com",
-    // webClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
-    // expoClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
-    androidClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
-    redirectUri: AuthSession.makeRedirectUri({ native: 'app.disposable_camera.disposable://' }),
-  });
+// TODO: Get these from config
+const proxyParams = { useProxy: true, projectNameForProxy: '@schotsl/disposable' };
+const nativeParams = { native: "app.disposablecamera.disposable://" };
 
-  console.log("broh");
+const selectedParams = Constants.appOwnership === 'expo' ? proxyParams : nativeParams;
+const selectedRedirect = AuthSession.makeRedirectUri(selectedParams);
+
+const SignInScreen = () => {
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    redirectUri: selectedRedirect,
+    iosClientId: "107127868067-6666bnbvlcd2fvvojdtncq1h3bihkfjb.apps.googleusercontent.com",
+    webClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
+    expoClientId: "107127868067-t96a83429ou61k26fijep98i3a0ut4ak.apps.googleusercontent.com",
+    androidClientId: "107127868067-e4t4bh092rcql1rit78tt7s279n47r6b.apps.googleusercontent.com",
+  });
 
   const [value, setValue] = React.useState({
     email: "",
@@ -39,26 +41,24 @@ const SignInScreen = () => {
   useEffect(() => {
     if (response?.type === "success") {
       const token = response.params.id_token;
-
-      // TODO: Remove GetAuth since we already import it
-      const auth = getAuth();
       const credential = GoogleAuthProvider.credential(token);
+
       signInWithCredential(auth, credential);
     }
   }, [response]);
 
   async function signIn() {
-    // if (value.email === "" || value.password === "") {
-    //   setValue({ ...value, error: "Email and password are mandatory." });
-    //   return;
-    // }
+    if (value.email === "" || value.password === "") {
+      setValue({ ...value, error: "Email and password are mandatory." });
+      return;
+    }
 
-    // try {
-    //   await signInWithEmailAndPassword(auth, value.email, value.password);
-    // } catch (error) {
-    //   setValue({ ...value, error: error.message });
-    //   return;
-    // }
+    try {
+      await signInWithEmailAndPassword(auth, value.email, value.password);
+    } catch (error) {
+      setValue({ ...value, error: error.message });
+      return;
+    }
   }
 
   return (
